@@ -1,3 +1,68 @@
 .point-user-selector {
     margin-bottom: 5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #f9f9fb;
+    font-size: 15px;
+    width: 250px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+form[action*="point_payment_add_points"] {
+    background: #fff;
+    padding: 24px 32px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+form[action*="point_payment_add_points"] input[type="number"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #f9f9fb;
+    font-size: 15px;
+    width: 120px;
+}
+
+form[action*="point_payment_add_points"] button.button-primary {
+    padding: 8px 20px;
+    border-radius: 6px;
+    background: linear-gradient(90deg,#2563eb,#1e40af);
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    box-shadow: 0 1px 4px rgba(37,99,235,0.08);
+    transition: background 0.2s;
+}
+form[action*="point_payment_add_points"] button.button-primary:hover {
+    background: linear-gradient(90deg,#1e40af,#2563eb);
+}
+
+.widefat {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: #fff;
+}
+.widefat th, .widefat td {
+    padding: 12px 16px;
+    font-size: 15px;
+}
+.widefat thead {
+    background: #f3f4f6;
+}
+.widefat tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+.wrap h1, .wrap h2 {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 16px;
 }

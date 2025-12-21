@@ -15,6 +15,7 @@ class Point_Payment_Admin {
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
         add_action( 'admin_post_point_payment_add_points', array( $this, 'handle_add_points' ) );
+        add_action( 'admin_post_point_payment_edit_points', array( $this, 'handle_edit_points' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
     }
 
@@ -67,13 +68,23 @@ class Point_Payment_Admin {
                     <tr>
                         <th><?php _e( 'User', 'point-payment' ); ?></th>
                         <th><?php _e( 'Points', 'point-payment' ); ?></th>
+                        <th><?php _e( 'Edit', 'point-payment' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ( $users as $user ) : ?>
                         <tr>
                             <td><?php echo esc_html( $user->display_name ); ?></td>
-                            <td><?php echo (int) get_user_meta( $user->ID, 'point_payment_points', true ); ?></td>
+                            <td id="user-points-<?php echo esc_attr( $user->ID ); ?>"><?php echo (int) get_user_meta( $user->ID, 'point_payment_points', true ); ?></td>
+                            <td>
+                                <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" style="display:inline-flex;gap:6px;align-items:center;">
+                                    <input type="hidden" name="action" value="point_payment_edit_points">
+                                    <?php wp_nonce_field( 'point_payment_edit_points' ); ?>
+                                    <input type="hidden" name="user_id" value="<?php echo esc_attr( $user->ID ); ?>">
+                                    <input type="number" name="points" style="width:70px;" required placeholder="±<?php _e( 'Points', 'point-payment' ); ?>">
+                                    <button type="submit" class="button">Update</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -96,6 +107,25 @@ class Point_Payment_Admin {
             $current = (int) get_user_meta( $user_id, 'point_payment_points', true );
             update_user_meta( $user_id, 'point_payment_points', $current + $points );
             $msg = urlencode( __( 'Points added successfully!', 'point-payment' ) );
+        } else {
+            $msg = urlencode( __( 'Invalid input.', 'point-payment' ) );
+        }
+        wp_redirect( admin_url( 'admin.php?page=point-payment&message=' . $msg ) );
+        exit;
+    }
+
+    public function handle_edit_points() {
+        if ( ! current_user_can( 'manage_options' ) || ! check_admin_referer( 'point_payment_edit_points' ) ) {
+            wp_die( __( 'Not allowed', 'point-payment' ) );
+        }
+        $user_id = intval( $_POST['user_id'] );
+        $points  = intval( $_POST['points'] );
+        if ( $user_id && $points !== 0 ) {
+            $current = (int) get_user_meta( $user_id, 'point_payment_points', true );
+            $new_points = $current + $points;
+            if ( $new_points < 0 ) $new_points = 0;
+            update_user_meta( $user_id, 'point_payment_points', $new_points );
+            $msg = urlencode( __( 'Points updated successfully!', 'point-payment' ) );
         } else {
             $msg = urlencode( __( 'Invalid input.', 'point-payment' ) );
         }
