@@ -2,6 +2,8 @@
 
 A simple, modern WooCommerce extension that allows customers to pay for orders using points. Admins can manage user points, view history, and set conversion rates.
 
+![Plugin Screenshot](assets/media/screenshot.png)
+
 ## Features
 - Customers can pay for orders using points
 - Admin can add or reduce user points
