@@ -31,7 +31,6 @@ A simple, modern WooCommerce extension that allows customers to pay for orders u
 ## File Structure
 ```
 point-payment/
-├── instruction.txt
 ├── point-payment.php
 ├── admin/
 │   └── class-point-payment-admin.php
