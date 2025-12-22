@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Point Payment
- * Description: A plugin to manage point-based payments.
+ * Description: A plugin to manage point-based payments for WooCommerce.
  * Version: 1.0.0
  * Plugin URI: https://shanto.net/plugins/point-payment
  * Author: Riadujjaman Shanto
