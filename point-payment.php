@@ -11,6 +11,7 @@
  * Text Domain: point-payment
  * Domain Path: /languages
  * Copyright: 2024 Riadujjaman Shanto
+ * Requires Plugins: woocommerce
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
